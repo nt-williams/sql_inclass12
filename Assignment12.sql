@@ -69,6 +69,19 @@ WHERE length = (
     FROM film
 );
 
+# Question 8 - The average runtime of the categories can found running the qeury below... its too much to fully write them all out
+
+
+SELECT d.name, AVG(f.length) AS avg_length
+FROM film AS f
+LEFT JOIN (
+		SELECT fc.film_id, c.name
+		FROM category AS c
+		LEFT JOIN film_category AS fc
+			ON c.category_id = fc.category_id
+	) AS d 
+    ON f.film_id = d.film_id
+GROUP BY d.name;
 
 
 
