@@ -46,3 +46,64 @@ FROM
     GROUP BY a.first_name, a.last_name
     ORDER BY number_action DESC) AS d;
     
+# Question 6 - The music category of films has the smallest number of records recorded in the database with 51 records
+
+SELECT name, MIN(number_records) AS number_records
+FROM (
+	SELECT c.name, COUNT(c.name) AS number_records 
+    FROM category AS c 
+	LEFT JOIN film_category AS f
+		ON c.category_id = f.category_id
+	GROUP BY c.name
+	ORDER BY number_records
+) AS d;
+
+/* Question 7 - The movies with the longest runtime in the database are Chicago North, Control Anthem, Darn Forrester, Gangs Pride,
+				Home Pity, Muscle Bright, Pond Seattle, Soldiers Evolution, Sweet Brotherhood, and Worst Banger; they all have a length
+				of 185*/
+                
+SELECT title, length 
+FROM film 
+WHERE length = (
+	SELECT MAX(length) AS length
+    FROM film
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
