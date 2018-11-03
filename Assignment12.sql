@@ -89,6 +89,20 @@ GROUP BY d.name;
 SELECT AVG(datediff(return_date, rental_date)) AS avg_time
 FROM rental; 
 
+/* Question 10 - The 3 customers who, on average, take the longest to return their movie rentals are Kenneth Gooden, 
+				 Brittany Riley, and Kevin Schuler */
+
+SELECT c.first_name, c.last_name, d.avg_time
+FROM customer AS c
+	LEFT JOIN (
+		SELECT customer_id, AVG(datediff(return_date, rental_date)) AS avg_time
+		FROM rental
+		GROUP BY customer_id
+		ORDER BY avg_time DESC
+		LIMIT 3
+	) AS d ON c.customer_id = d.customer_id
+LIMIT 3;
+
 
 
 
