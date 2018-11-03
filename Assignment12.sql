@@ -75,13 +75,12 @@ WHERE length = (
 
 SELECT d.name, AVG(f.length) AS avg_length
 FROM film AS f
-LEFT JOIN (
+	LEFT JOIN (
 		SELECT fc.film_id, c.name
 		FROM category AS c
 		LEFT JOIN film_category AS fc
 			ON c.category_id = fc.category_id
-	) AS d 
-    ON f.film_id = d.film_id
+		) AS d ON f.film_id = d.film_id
 GROUP BY d.name;
 
 # Question 9 - The average length of time between movie rentals and return is 5.03 days
@@ -98,12 +97,18 @@ FROM customer AS c
 		SELECT customer_id, AVG(datediff(return_date, rental_date)) AS avg_time
 		FROM rental
 		GROUP BY customer_id
-		ORDER BY avg_time DESC
-		LIMIT 3
 	) AS d ON c.customer_id = d.customer_id
+ORDER BY avg_time DESC
 LIMIT 3;
 
+# Question 11 - Jon had, on average, their customers spend the highest amount
 
+SELECT s.first_name, AVG(p.amount) AS avg_amount
+FROM staff AS s
+	LEFT JOIN payment AS p
+    ON s.staff_id = p.staff_id
+GROUP BY s.first_name
+ORDER BY avg_amount DESC;
 
 
 
