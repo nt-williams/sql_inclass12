@@ -101,7 +101,7 @@ FROM customer AS c
 ORDER BY avg_time DESC
 LIMIT 3;
 
-# Question 11 - Jon had, on average, their customers spend the highest amount
+# Question 11 - Jon had, on average, their customers spend the highest amount with $4.25 per rental
 
 SELECT s.first_name, AVG(p.amount) AS avg_amount
 FROM staff AS s
@@ -109,6 +109,16 @@ FROM staff AS s
     ON s.staff_id = p.staff_id
 GROUP BY s.first_name
 ORDER BY avg_amount DESC;
+
+# Question 12 - Karl Seal has spent the largest gross amount on rentals; he spent $221.55
+
+SELECT c.customer_id, c.first_name, c.last_name, SUM(p.amount) AS total_spent
+FROM customer AS c
+	LEFT JOIN payment AS p
+    ON c.customer_id = p.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC
+LIMIT 1;
 
 
 
